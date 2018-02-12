@@ -30,4 +30,24 @@ app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}. env: ${environment}`);
 });
 
+app.get('/api/v1/garages/', (request, response) => {
+  return database('garages').select()
+    .then(garages => {
+      return response.status(200).json({ garages });
+    })
+    .catch((error) => {
+      return response.status(500).json({ error: `Error getting garages: ${error}` });
+    });
+});
+
+app.get('/api/v1/items/', (request, response) => {
+  return database('items').select()
+    .then(items => {
+      return response.status(200).json({ items });
+    })
+    .catch(() => {
+      return response.status(500).json({ error: `Error getting garages: ${error}` });
+    });
+});
+
 module.exports = app;
