@@ -34,5 +34,52 @@ describe('Client Routes', () => {
 });
 
 describe('API Routes', () => {
+  beforeEach((done) => {
+    knex.seed.run()
+    .then(() => done())
+  });
 
+  describe('GET /api/v1/garages', () => {
+    it('should return all the garages from the garages table', () => {
+      return chai.request(server)
+        .get('/api/v1/garages')
+        .then(response => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.garages.should.be.a('array');
+          response.body.garages.length.should.equal(1);
+          response.body.garages.every(garage => {
+            garage.hasOwnProperty('name') && garage.hasOwnProperty('id')
+          });
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+  });
+
+  describe('GET /api/v1/items', () => {
+    it('should return all the items from the items table', () => {
+      return chai.request(server)
+        .get('/api/v1/items')
+        .then(response => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.items.should.be.a('array');
+          response.body.items.length.should.equal(5);
+          response.body.items.every(item => {
+            item.hasOwnProperty('name') 
+            && item.hasOwnProperty('reason') 
+            && item.hasOwnProperty('cleanliness')
+            && item.hasOwnProperty('garage_id')
+            && item.hasOwnProperty('id')
+          });
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+  });
+
+  
 });
