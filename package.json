@@ -6,8 +6,8 @@
   "scripts": {
     "test": "mocha --exit",
     "start": "nodemon server.js",
-    "build-css": "node-sass-chokidar public/css/ -o public/css/",
-    "watch-css": "npm run build-css && node-sass-chokidar public/css/ -o public/css/ --watch --recursive"
+    "build-css": "node-sass-chokidar public/styles/ -o public/styles/",
+    "watch-css": "npm run build-css && node-sass-chokidar public/styles/ -o public/styles/ --watch --recursive"
   },
   "keywords": [],
   "author": "",
