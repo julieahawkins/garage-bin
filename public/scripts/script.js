@@ -17,12 +17,16 @@ const populateGarages = (garages, items) => {
   garages.forEach(garage => {
     appendGarage(garage);
   });
+
+  items.forEach(item => {
+    appendItems(item);
+  });
 };
 
 const appendGarage = (garage) => {
   console.log(garage.id)
   $('.garages').append(
-    `<div class="garage">
+    `<div class="garage" id="garage-${garage.id}">
       <h3 class="garage-name">${garage.name}</h3>
       <div class="garage-door"> 
       </div>
@@ -31,6 +35,13 @@ const appendGarage = (garage) => {
       <div class="shelves shelf-1"></div>
     </div>`
   )
+};
+
+const appendItems = (item) => {
+  console.log(item)
+  $(`#garage-${item.garage_id} .shelf-1`).append(
+    `<p>${item.name}</p>`
+  );
 };
 
 function openDoor() {
