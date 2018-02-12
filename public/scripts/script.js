@@ -16,6 +16,10 @@ const populateGarages = (garages, items) => {
     appendGarage(garage);
   });
 
+  populateItems(items);
+};
+
+const populateItems = (items) => {
   items.forEach((item) => {
     storedGarages.forEach(garage => {
       if (item.garage_id === garage.id) {
@@ -24,13 +28,31 @@ const populateGarages = (garages, items) => {
     })
     appendItems(item);
   });
-  console.log(storedGarages);
+  appendItemCount();
+};
+
+const appendItemCount = () => {
+  const counts = storedGarages.reduce((counts, garage) => {
+    if (!counts[garage.name]) {
+      counts[garage.name] = {
+        id: garage.id,
+        count: garage.items.length
+      };
+    } 
+    return counts;
+  }, {});
+
+  storedGarages.forEach(garage => {
+    $(`#garage-${counts[garage.name].id} .item-count`).append(`${counts[garage.name].count} Items Stored`);
+  });
 };
 
 const appendGarage = (garage) => {
   $('.garages').append(
     `<div class="garage" id="garage-${garage.id}">
-      <h3 class="garage-name">${garage.name}</h3>
+      <h3 class="garage-name">${garage.name} 
+        <span class="item-count"></span>
+      </h3>
       <div class="garage-door"> 
       </div>
       <div class="shelves shelf-1"></div>
