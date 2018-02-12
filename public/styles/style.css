@@ -74,6 +74,18 @@ main .garages {
       grid-template-columns: 1fr 1fr 1fr; }
       main .garages .garage .counts-container p {
         color: #fff; }
+    main .garages .garage .add-item {
+      position: absolute;
+      bottom: -50px;
+      right: 0;
+      margin: 0 auto;
+      left: 0;
+      color: #999;
+      font-size: 16pt;
+      text-align: center;
+      cursor: pointer; }
+      main .garages .garage .add-item:hover {
+        color: #fff; }
 
 footer {
   background: #4A5043; }

@@ -82,6 +82,7 @@ const appendGarage = (garage) => {
       <div class="shelves shelf-9"></div>
       <div class="counts-container">
       </div>
+      <div class="add-item">+ ADD ITEM</div>
     </div>`
   )
 };
