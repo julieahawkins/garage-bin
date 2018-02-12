@@ -86,4 +86,21 @@ app.post('/api/v1/items', (request, response) => {
     });
 });
 
+app.patch('/api/v1/items/:id', (request, response) => {
+  const { id } = request.params;
+  const { cleanliness } = request.body;
+
+  if (!cleanliness) {
+    return response.status(422).json({ error: `Error invalid cleanliness: "${cleanliness}".` });
+  }
+
+  return database('items').where('id', id).update('cleanliness', cleanliness)
+    .then(() => {
+      return response.status(200).json({ status: `Successfully updated cleanliness of item #${id}, to '${cleanliness}'.` });
+    })
+    .catch(error => {
+      return response.status(500).json({ error: `Error updating cleanliness of item #${id}: ${error}` });
+    });
+});
+
 module.exports = app;
