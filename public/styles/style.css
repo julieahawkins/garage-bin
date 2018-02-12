@@ -33,7 +33,7 @@ main .garages {
     align-self: flex-end;
     position: relative; }
     main .garages .garage .garage-door {
-      background: linear-gradient(red, yellow, blue, orange, red, yellow, blue, orange);
+      background: linear-gradient(#22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E);
       height: 400px;
       position: absolute;
       top: -30px;
