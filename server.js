@@ -46,7 +46,7 @@ app.get('/api/v1/items/', (request, response) => {
       return response.status(200).json({ items });
     })
     .catch(() => {
-      return response.status(500).json({ error: `Error getting garages: ${error}` });
+      return response.status(500).json({ error: `Error getting items: ${error}` });
     });
 });
 
