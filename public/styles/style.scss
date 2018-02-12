@@ -41,7 +41,7 @@ main {
       position: relative;
 
       display: grid;
-      grid-template-rows: 1fr 1fr 1fr .1fr;
+      grid-template-rows: 1fr 1fr 1fr .2fr;
       grid-template-columns: 1fr 1fr 1fr;
       .shelves {
         border-bottom: 4px solid black;
@@ -89,6 +89,13 @@ main {
         span {
           font-size: 12pt;
         }
+      }
+      .counts-container {
+        grid-column: 1 / 4;
+        background: magenta;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        
       }
     }
   }

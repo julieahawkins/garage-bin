@@ -33,7 +33,7 @@ main .garages {
     align-self: flex-end;
     position: relative;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr .1fr;
+    grid-template-rows: 1fr 1fr 1fr .2fr;
     grid-template-columns: 1fr 1fr 1fr; }
     main .garages .garage .shelves {
       border-bottom: 4px solid black;
@@ -67,6 +67,11 @@ main .garages {
       right: -10px; }
       main .garages .garage .garage-name span {
         font-size: 12pt; }
+    main .garages .garage .counts-container {
+      grid-column: 1 / 4;
+      background: magenta;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr; }
 
 footer {
   background: #4A5043; }
