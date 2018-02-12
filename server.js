@@ -66,6 +66,24 @@ app.post('/api/v1/garages', (request, response) => {
     .catch(error => {
       return response.status(500).json({ error: `Error adding garage: ${error}.` });
     });
-})
+});
+
+app.post('/api/v1/items', (request, response) => {
+  const item = request.body;
+
+  for (let requiredParameters of ['name', 'reason', 'cleanliness', 'garage_id']) {
+    if (!item[requiredParameters]) {
+      return response.status(422).json({error: `Missing required parameter ${requiredParameters}.`});
+    }
+  }
+
+  return database('items').insert(item, 'id')
+    .then(id => {
+      return response.status(201).json({ status: `Success adding item: ${id}.` });
+    })
+    .catch(error => {
+      return response.status(500).json({ error: `Error adding item: ${error}.` });
+    });
+});
 
 module.exports = app;
