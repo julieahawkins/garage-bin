@@ -45,18 +45,18 @@ main {
       grid-template-columns: 1fr 1fr 1fr;
       .shelves {
         border-bottom: 4px solid black;
-        grid-column: 1 / 4;
+        // grid-column: 1 / 4;
         box-shadow: 0 0 10px 2px #22251f;
       }
-      .shelf-1 {
-        grid-row: 1;
-      }
-      .shelf-2 {
-        grid-row: 2;
-      }
-      .shelf-3 {
-        grid-row: 3;
-      }
+      // .shelf-1 {
+      //   grid-row: 1;
+      // }
+      // .shelf-2 {
+      //   grid-row: 2;
+      // }
+      // .shelf-3 {
+      //   grid-row: 3;
+      // }
       .garage-door {
         background: linear-gradient(#22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E);
         height: 400px;
