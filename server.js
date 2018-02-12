@@ -50,4 +50,22 @@ app.get('/api/v1/items/', (request, response) => {
     });
 });
 
+app.post('/api/v1/garages', (request, response) => {
+  const garage = request.body;
+
+  for (let requiredParameters of ['name']) {
+    if (!garage[requiredParameters]) {
+      return response.status(422).json({error: `Missing required parameter ${requiredParameters}.`});
+    }
+  }
+
+  return database('garages').insert(garage, 'id')
+    .then(id => {
+      return response.status(201).json({ status: `Success adding garage: ${id}.` });
+    })
+    .catch(error => {
+      return response.status(500).json({ error: `Error adding garage: ${error}.` });
+    });
+})
+
 module.exports = app;
