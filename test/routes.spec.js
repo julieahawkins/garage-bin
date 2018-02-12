@@ -158,5 +158,33 @@ describe('API Routes', () => {
     });
   });
 
+  describe('PATCH /api/v1/items/:id', () => {
+    it('should return a 200 and the successfully updated id', () => {
+      return chai.request(server)
+        .patch('/api/v1/items/4')
+        .send({ cleanliness: 'Rancid'})
+        .then((response) => {
+          response.should.have.status(200);
+          response.body.status.should.equal('Successfully updated cleanliness of item #4, to Rancid.')
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+
+    it('should return a 422 given an invalid cleanliness', () => {
+      return chai.request(server)
+        .patch('/api/v1/items/4')
+        .send({ prettiness: 'Fabuloso' })
+        .then(() => {
+          response.should.have.status(422);
+          response.body.error.should.equal('Error invalid cleanliness: undefined.');
+        })
+        .catch(error => {
+          error.should.have.status(422);
+          error.response.body.error.should.equal('Error invalid cleanliness: undefined.');
+        });
+    });
+  });
 
 });
