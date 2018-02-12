@@ -69,9 +69,11 @@ main .garages {
         font-size: 12pt; }
     main .garages .garage .counts-container {
       grid-column: 1 / 4;
-      background: magenta;
+      background: #74471E;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr; }
+      main .garages .garage .counts-container p {
+        color: #fff; }
 
 footer {
   background: #4A5043; }
