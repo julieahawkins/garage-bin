@@ -81,5 +81,77 @@ describe('API Routes', () => {
     });
   });
 
-  
+  describe('POST /api/v1/garages', () => {
+    it('should add a garage to the garages table', () => {
+      return chai.request(server)
+        .post('/api/v1/garages')
+        .send({
+          name: 'Julie Hawkins'
+        })
+        .then(response => {
+          response.should.have.status(201);
+          response.should.be.json;
+          response.body.should.be.a('object');
+          response.body.should.have.property('status');
+          response.body.status.should.equal('Success adding garage: 2.')
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+
+    it('should return a 422 status if require params are missing', () => {
+      return chai.request(server)
+        .post('/api/v1/garages')
+        .send({
+          wrong: 'not expected'
+        })
+        .then(response => {
+          response.should.have.status(422);
+          response.body.error.should.equal('Missing required parameter name.');
+        })
+        .catch(error => {
+          error.should.have.status(422);
+          error.response.body.error.should.equal('Missing required parameter name.');
+        });
+    });
+  });
+
+  describe('POST /api/v1/items', () => {
+    it.skip('should add a location to the locations table', () => {
+      return chai.request(server)
+        .post('/api/v1/locations')
+        .send({
+          city: 'New City',
+          state: 'New State'
+        })
+        .then(response => {
+          response.should.have.status(201);
+          response.should.be.json;
+          response.body.should.be.a('object');
+          response.body.should.have.property('status');
+          response.body.status.should.equal('Success adding location: 5.');
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+
+    it.skip('should return a 422 status if require params are missing', () => {
+      return chai.request(server)
+        .post('/api/v1/sightings')
+        .send({
+          city: 'Tomorrow Land'
+        })
+        .then(response => {
+          // response.should.have.status(422);
+        })
+        .catch(error => {
+          error.should.have.status(422);
+          error.response.body.error.should.match(/Missing required parameter location_id./);
+        });
+    });
+  });
+
+
 });
