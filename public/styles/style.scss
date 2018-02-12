@@ -6,15 +6,52 @@
 
 body {
   min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 3fr .5fr;
 }
 
 header {
+  background: #FF9B42;
+  text-align: center;
   h1 {
-
+    color: #fff;
+    font-size: 80pt;
   }
   h2 {
+    color: #4A5043;
+    font-size: 20pt;
     span {
       text-decoration: line-through;
     }
   }
+}
+
+main {
+  .garages {
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    .garage {
+      width: 33%;
+      height: 400px;
+      background: #6A6F65;
+      border: 35px inset #22251F;
+      border-bottom: none;
+      align-self: flex-end;
+      position: relative;
+      .garage-door {
+        background: linear-gradient(red, yellow, blue, orange, red, yellow, blue, orange);;
+        height: 400px;
+        position: absolute;
+        top: -30px;
+        left: -30px;
+        margin: 0 auto;
+        right: -30px;
+      }
+    }
+  }
+}
+
+footer {
+  background: #4A5043;
 }
