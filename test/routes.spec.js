@@ -118,37 +118,42 @@ describe('API Routes', () => {
   });
 
   describe('POST /api/v1/items', () => {
-    it.skip('should add a location to the locations table', () => {
+    it('should add an item to the items table', () => {
       return chai.request(server)
-        .post('/api/v1/locations')
+        .post('/api/v1/items')
         .send({
-          city: 'New City',
-          state: 'New State'
+          name: 'Nintendo 64',
+          reason: 'Mario 64',
+          cleanliness: 'Sparkling', 
+          garage_id: 1
         })
         .then(response => {
           response.should.have.status(201);
           response.should.be.json;
           response.body.should.be.a('object');
           response.body.should.have.property('status');
-          response.body.status.should.equal('Success adding location: 5.');
+          response.body.status.should.equal('Success adding item: 6.');
         })
         .catch(error => {
           throw error;
         });
     });
 
-    it.skip('should return a 422 status if require params are missing', () => {
+    it('should return a 422 status if require params are missing', () => {
       return chai.request(server)
-        .post('/api/v1/sightings')
+        .post('/api/v1/items')
         .send({
-          city: 'Tomorrow Land'
+          name: 'Gummy Bears',
+          cleanliness: 'Rancid', 
+          garage_id: 1
         })
         .then(response => {
-          // response.should.have.status(422);
+          response.should.have.status(422);
+          response.body.error.should.equal('Missing required parameter reason.');
         })
         .catch(error => {
           error.should.have.status(422);
-          error.response.body.error.should.match(/Missing required parameter location_id./);
+          error.response.body.error.should.equal('Missing required parameter reason.');
         });
     });
   });
