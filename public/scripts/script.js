@@ -112,7 +112,6 @@ const addItem = async (event) => {
   if(!item.name || !item.reason || !item.garage_id) {
     console.log('wrong')
   } else {
-
     const post = await fetch('/api/v1/items', {
       method: 'POST',
       headers: {
@@ -121,7 +120,7 @@ const addItem = async (event) => {
       body: JSON.stringify(item)
     });
     const result = await post.json();
-
+    
     console.log(result);
 
     $('input').val('');
