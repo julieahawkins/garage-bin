@@ -33,9 +33,17 @@ main .item-details {
   color: #fff;
   background: #22251F; }
   main .item-details h2 {
+    font-size: 24pt; }
+  main .item-details p, main .item-details label {
     font-size: 20pt; }
-  main .item-details p {
-    font-size: 16pt; }
+  main .item-details .change-item,
+  main .item-details .close-details,
+  main .item-details select,
+  main .item-details option {
+    font-size: 16pt;
+    border: 3px solid #6A6F65;
+    margin: 10px;
+    padding: 10px; }
 
 main .item-details.none {
   display: none; }
