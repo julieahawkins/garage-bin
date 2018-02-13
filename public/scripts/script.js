@@ -122,6 +122,7 @@ const addItem = async (event) => {
     const result = await post.json();
     
     console.log(result);
+    storedGarages.
 
     $('input').val('');
     closeForm();
@@ -134,12 +135,11 @@ function seeItemDetails() {
   const match = storedGarages.find(garage => garage.id === parseInt(garageID));
   const item = match.items.find(item => item.name === $(this).text());
 
-  
   $('.item-details').removeClass('none');
-  $('.details-name').text(item.name);
-  $('.details-reason').text(item.reason);
-  $('.details-cleanliness').text(item.cleanliness);
-  setTimeout(() => ($('.item-details').addClass('none')), 2000)
+  $('.details-name').text(`Name: ${item.name}`);
+  $('.details-reason').text(`Reason for Storage: ${item.reason}`);
+  $('.details-cleanliness').val(item.cleanliness);
+  // setTimeout(() => ($('.item-details').addClass('none')), 2000)
 };
 
 function openForm() {
@@ -154,9 +154,19 @@ const closeForm = () => {
   $('.item-form').addClass('none');
 };
 
+const closeDetails = () => {
+  $('.item-details').addClass('none');
+};
+
+const changeItem = () => {
+  console.log($('.details-cleanliness').val())
+};
+
 $(document).ready(fetchData());
 $('.garages').on('click', '.garage-door', openDoor);
 $('.garages').on('click', '.add-item', openForm);
 $('.garages').on('click', '.item-name', seeItemDetails);
 $('.add-item-btn').on('click', addItem);
 $('.close').on('click', closeForm);
+$('.close-details').on('click', closeDetails);
+$('.change-item').on('click', changeItem);
