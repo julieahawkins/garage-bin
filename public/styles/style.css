@@ -20,6 +20,26 @@ header {
     header h2 span {
       text-decoration: line-through; }
 
+main .item-details {
+  position: absolute;
+  padding: 50px;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 30;
+  color: #fff;
+  background: #22251F; }
+  main .item-details h2 {
+    font-size: 20pt; }
+  main .item-details p {
+    font-size: 16pt; }
+
+main .item-details.none {
+  display: none; }
+
 main .item-form {
   position: absolute;
   background: #22251F;
@@ -77,7 +97,16 @@ main .garages {
     grid-template-columns: 1fr 1fr 1fr; }
     main .garages .garage .shelves {
       border-bottom: 4px solid black;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
       box-shadow: 0 0 10px 0 #22251f; }
+      main .garages .garage .shelves .item-name {
+        cursor: pointer;
+        text-align: center; }
+        main .garages .garage .shelves .item-name:hover {
+          color: #fff;
+          font-size: 16pt; }
     main .garages .garage .garage-door {
       background: linear-gradient(#22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E);
       height: 400px;
