@@ -27,6 +27,28 @@ header {
 }
 
 main {
+  .item-details {
+    position: absolute;
+    padding: 50px;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 30;
+    color: #fff;
+    background: #22251F;
+    h2 {
+      font-size: 20pt;
+    }
+    p {
+      font-size: 16pt;
+    }
+  }
+  .item-details.none {
+    display: none;
+  }
   .item-form {
     position: absolute;
     background: #22251F;
@@ -91,8 +113,18 @@ main {
       grid-template-columns: 1fr 1fr 1fr;
       .shelves {
         border-bottom: 4px solid black;
-        // grid-column: 1 / 4;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
         box-shadow: 0 0 10px 0 #22251f;
+        .item-name {
+          cursor: pointer;
+          text-align: center;
+          &:hover {
+            color: #fff;
+            font-size: 16pt;
+          }
+        }
       }
       .garage-door {
         background: linear-gradient(#22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E);

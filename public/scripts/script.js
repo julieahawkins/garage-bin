@@ -91,7 +91,7 @@ const appendItems = (item, index) => {
   const shelfNum = storedGarages[item.garage_id - 1].items.length;
   
   $(`#garage-${item.garage_id} .shelf-${shelfNum}`).append(
-    `<p>${item.name}</p>`
+    `<p class="item-name">${item.name}</p>`
   );
 };
 
@@ -128,6 +128,20 @@ const addItem = async (event) => {
   }
 };
 
+function seeItemDetails() {
+  const garage = $(this).closest('.garage').attr('id');
+  const garageID = garage[garage.length - 1];
+  const match = storedGarages.find(garage => garage.id === parseInt(garageID));
+  const item = match.items.find(item => item.name === $(this).text());
+
+  
+  $('.item-details').removeClass('none');
+  $('.details-name').text(item.name);
+  $('.details-reason').text(item.reason);
+  $('.details-cleanliness').text(item.cleanliness);
+  setTimeout(() => ($('.item-details').addClass('none')), 2000)
+};
+
 function openForm() {
   const garage = $(this).closest('.garage').attr('id');
   const garageID = garage[garage.length - 1];
@@ -143,5 +157,6 @@ const closeForm = () => {
 $(document).ready(fetchData());
 $('.garages').on('click', '.garage-door', openDoor);
 $('.garages').on('click', '.add-item', openForm);
+$('.garages').on('click', '.item-name', seeItemDetails);
 $('.add-item-btn').on('click', addItem);
 $('.close').on('click', closeForm);
