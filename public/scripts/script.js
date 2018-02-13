@@ -158,9 +158,21 @@ const closeDetails = () => {
   $('.item-details').addClass('none');
 };
 
-const changeItem = () => {
-  console.log($('.details-cleanliness').val())
-};
+// const changeItem = async () => {
+//   console.log($('.details-cleanliness').val());
+//   const id = 
+
+//   const patch = await fetch(`/api/v1/items/${id}`, {
+//       method: 'PATCH',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({ cleanliness: $('.details-cleanliness').val() })
+//     });
+//     const result = await patch.json();
+    
+//     console.log(result);
+// };
 
 $(document).ready(fetchData());
 $('.garages').on('click', '.garage-door', openDoor);
