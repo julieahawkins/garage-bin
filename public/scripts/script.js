@@ -103,14 +103,14 @@ const addItem = async (event) => {
   event.preventDefault();
 
   const item = {
-    name: $('.item-name').val(),
-    reason: $('.item-name').val(),
+    name: $('.items-name').val(),
+    reason: $('.items-reason').val(),
     cleanliness: $('select').val(),
     garage_id: $('.hidden-id').text()
   }
 
   if(!item.name || !item.reason || !item.garage_id) {
-    console.log('wrong')
+    console.log('error storing new item in garage')
   } else {
     const post = await fetch('/api/v1/items', {
       method: 'POST',
@@ -122,7 +122,6 @@ const addItem = async (event) => {
     const result = await post.json();
     
     console.log(result);
-    storedGarages.
 
     $('input').val('');
     closeForm();
@@ -181,4 +180,4 @@ $('.garages').on('click', '.item-name', seeItemDetails);
 $('.add-item-btn').on('click', addItem);
 $('.close').on('click', closeForm);
 $('.close-details').on('click', closeDetails);
-$('.change-item').on('click', changeItem);
+// $('.change-item').on('click', changeItem);
