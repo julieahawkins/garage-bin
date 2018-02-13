@@ -20,6 +20,28 @@ header {
     header h2 span {
       text-decoration: line-through; }
 
+main .item-form {
+  position: absolute;
+  background: #22251F;
+  z-index: 30;
+  padding: 50px;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+  main .item-form .close {
+    align-self: flex-end;
+    color: #999;
+    cursor: pointer; }
+    main .item-form .close:hover {
+      color: #fff; }
+  main .item-form form {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+
 main .garages {
   height: 100%;
   display: flex;
@@ -89,3 +111,6 @@ main .garages {
 
 footer {
   background: #4A5043; }
+
+.none {
+  display: none; }

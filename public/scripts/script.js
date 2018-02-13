@@ -99,5 +99,14 @@ function openDoor() {
   setTimeout(() => ($(this).toggleClass('open')), 600);
 };
 
+function addItem() {
+  const garage = $(this).closest('.garage').attr('id');
+  const garageID = garage[garage.length - 1];
+  console.log(garageID)
+
+  $('.item-form').removeClass('none');
+}
+
 $(document).ready(fetchData());
 $('.garages').on('click', '.garage-door', openDoor);
+$('.garages').on('click', '.add-item', addItem);
