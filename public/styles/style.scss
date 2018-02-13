@@ -50,7 +50,28 @@ main {
       display: flex;
       justify-content: center;
       align-items: center;
+      input,
+      button,
+      select,
+      option {
+        font-size: 20pt;
+        border: 3px solid #6A6F65;
+        margin: 10px;
+        padding: 10px;
+      }
+      .add-item-btn {
+        margin-left: 50px;
+        color: #6A6F65;
+        background: #999;
+        cursor: pointer;
+        &:hover {
+          color: #fff;
+        }
+      }
     }
+  }
+  .item-form.none {
+    display: none;
   }
   .garages {
     height: 100%;
@@ -135,8 +156,4 @@ main {
 
 footer {
   background: #4A5043;
-}
-
-.none {
-  display: none;
 }

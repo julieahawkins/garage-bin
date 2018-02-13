@@ -41,6 +41,24 @@ main .item-form {
     display: flex;
     justify-content: center;
     align-items: center; }
+    main .item-form form input,
+    main .item-form form button,
+    main .item-form form select,
+    main .item-form form option {
+      font-size: 20pt;
+      border: 3px solid #6A6F65;
+      margin: 10px;
+      padding: 10px; }
+    main .item-form form .add-item-btn {
+      margin-left: 50px;
+      color: #6A6F65;
+      background: #999;
+      cursor: pointer; }
+      main .item-form form .add-item-btn:hover {
+        color: #fff; }
+
+main .item-form.none {
+  display: none; }
 
 main .garages {
   height: 100%;
@@ -111,6 +129,3 @@ main .garages {
 
 footer {
   background: #4A5043; }
-
-.none {
-  display: none; }
