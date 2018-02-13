@@ -27,6 +27,52 @@ header {
 }
 
 main {
+  .item-form {
+    position: absolute;
+    background: #22251F;
+    z-index: 30;
+    padding: 50px;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .close {
+      align-self: flex-end;
+      color: #999;
+      cursor: pointer;
+      &:hover {
+        color: #fff;
+      }
+    }
+    form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      input,
+      button,
+      select,
+      option {
+        font-size: 20pt;
+        border: 3px solid #6A6F65;
+        margin: 10px;
+        padding: 10px;
+      }
+      .add-item-btn {
+        margin-left: 50px;
+        color: #6A6F65;
+        background: #999;
+        cursor: pointer;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+  .item-form.none {
+    display: none;
+  }
   .garages {
     height: 100%;
     display: flex;
@@ -48,15 +94,6 @@ main {
         // grid-column: 1 / 4;
         box-shadow: 0 0 10px 0 #22251f;
       }
-      // .shelf-1 {
-      //   grid-row: 1;
-      // }
-      // .shelf-2 {
-      //   grid-row: 2;
-      // }
-      // .shelf-3 {
-      //   grid-row: 3;
-      // }
       .garage-door {
         background: linear-gradient(#22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E, #22251F, #74471E, #FF9B42, #74471E);
         height: 400px;
@@ -96,6 +133,20 @@ main {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         p {
+          color: #fff;
+        }
+      }
+      .add-item {
+        position: absolute;
+        bottom: -50px;
+        right: 0;
+        margin: 0 auto;
+        left: 0;
+        color: #999;
+        font-size: 16pt;
+        text-align: center;
+        cursor: pointer;
+        &:hover {
           color: #fff;
         }
       }

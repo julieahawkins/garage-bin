@@ -82,6 +82,7 @@ const appendGarage = (garage) => {
       <div class="shelves shelf-9"></div>
       <div class="counts-container">
       </div>
+      <div class="add-item">+ ADD ITEM</div>
     </div>`
   )
 };
@@ -98,5 +99,49 @@ function openDoor() {
   setTimeout(() => ($(this).toggleClass('open')), 600);
 };
 
+const addItem = async (event) => {
+  event.preventDefault();
+
+  const item = {
+    name: $('.item-name').val(),
+    reason: $('.item-name').val(),
+    cleanliness: $('select').val(),
+    garage_id: $('.hidden-id').text()
+  }
+
+  if(!item.name || !item.reason || !item.garage_id) {
+    console.log('wrong')
+  } else {
+    const post = await fetch('/api/v1/items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(item)
+    });
+    const result = await post.json();
+    
+    console.log(result);
+
+    $('input').val('');
+    closeForm();
+  }
+};
+
+function openForm() {
+  const garage = $(this).closest('.garage').attr('id');
+  const garageID = garage[garage.length - 1];
+
+  $('.item-form').removeClass('none');
+  $('.hidden-id').replaceWith(`<p class="hidden-id" hidden>${garageID}</p>`)
+};
+
+const closeForm = () => {
+  $('.item-form').addClass('none');
+};
+
 $(document).ready(fetchData());
 $('.garages').on('click', '.garage-door', openDoor);
+$('.garages').on('click', '.add-item', openForm);
+$('.add-item-btn').on('click', addItem);
+$('.close').on('click', closeForm);
