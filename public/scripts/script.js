@@ -55,7 +55,7 @@ const appendItemCount = () => {
 
   storedGarages.forEach(garage => {
     $(`#garage-${counts[garage.name].id} .item-count`).text(`${counts[garage.name].count} Items Stored`);
-    $(`#garage-${counts[garage.name].id} .counts-container`).children().remove()
+    $(`#garage-${counts[garage.name].id} .counts-container`).children().remove();
     $(`#garage-${counts[garage.name].id} .counts-container`).append(
       `<p>${counts[garage.name].types.Sparkling || 0} Sparkling.</p>
       <p>${counts[garage.name].types.Dusty || 0} Dusty.</p>
@@ -145,7 +145,7 @@ function seeItemDetails() {
   $('.details-name').text(`Name: ${item.name}`);
   $('.details-reason').text(`Reason for Storage: ${item.reason}`);
   $('.details-cleanliness').val(item.cleanliness);
-  // setTimeout(() => ($('.item-details').addClass('none')), 2000)
+  $('.hidden-item-id').replaceWith(`<p class="hidden-item-id" hidden>${item.id}</p>`)
 };
 
 function openForm() {
@@ -164,21 +164,19 @@ const closeDetails = () => {
   $('.item-details').addClass('none');
 };
 
-// const changeItem = async () => {
-//   console.log($('.details-cleanliness').val());
-//   const id = 
-
-//   const patch = await fetch(`/api/v1/items/${id}`, {
-//       method: 'PATCH',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({ cleanliness: $('.details-cleanliness').val() })
-//     });
-//     const result = await patch.json();
+const changeItem = async () => {
+  const id = $('.hidden-item-id').text();
+  const patch = await fetch(`/api/v1/items/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ cleanliness: $('.details-cleanliness').val() })
+    });
+    const result = await patch.json();
     
-//     console.log(result);
-// };
+    console.log(result);
+};
 
 $(document).ready(fetchData());
 $('.garages').on('click', '.garage-door', openDoor);
@@ -187,4 +185,4 @@ $('.garages').on('click', '.item-name', seeItemDetails);
 $('.add-item-btn').on('click', addItem);
 $('.close').on('click', closeForm);
 $('.close-details').on('click', closeDetails);
-// $('.change-item').on('click', changeItem);
+$('.change-item').on('click', changeItem);
