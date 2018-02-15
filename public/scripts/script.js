@@ -26,7 +26,7 @@ const populateItems = (items) => {
         garage.items.push(item)
       }
     })
-    appendItems(item);
+    appendItem(item);
   });
   appendItemCount();
 };
@@ -54,7 +54,8 @@ const appendItemCount = () => {
   }, {});
 
   storedGarages.forEach(garage => {
-    $(`#garage-${counts[garage.name].id} .item-count`).append(`${counts[garage.name].count} Items Stored`);
+    $(`#garage-${counts[garage.name].id} .item-count`).text(`${counts[garage.name].count} Items Stored`);
+    $(`#garage-${counts[garage.name].id} .counts-container`).children().remove()
     $(`#garage-${counts[garage.name].id} .counts-container`).append(
       `<p>${counts[garage.name].types.Sparkling || 0} Sparkling.</p>
       <p>${counts[garage.name].types.Dusty || 0} Dusty.</p>
@@ -87,7 +88,7 @@ const appendGarage = (garage) => {
   )
 };
 
-const appendItems = (item, index) => {
+const appendItem = (item) => {
   const shelfNum = storedGarages[item.garage_id - 1].items.length;
   
   $(`#garage-${item.garage_id} .shelf-${shelfNum}`).append(
@@ -99,32 +100,39 @@ function openDoor() {
   setTimeout(() => ($(this).toggleClass('open')), 600);
 };
 
-const addItem = async (event) => {
+const addItem = (event) => {
   event.preventDefault();
-
   const item = {
     name: $('.items-name').val(),
     reason: $('.items-reason').val(),
     cleanliness: $('.cleanliness option:selected').val(),
     garage_id: $('.hidden-id').text()
-  }
-  console.log(item.cleanliness)
+  };
 
   if(!item.name || !item.reason || !item.garage_id) {
     console.log('error storing new item in garage');
   } else {
-    const post = await fetch('/api/v1/items', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(item)
-    });
-    const result = await post.json();
+    const garage = storedGarages.find(garage => garage.id === parseInt(item.garage_id));
+    const index = storedGarages.indexOf(garage);
+    storedGarages[index].items.push(item);
+    createItem(item);
+    appendItem(item);
+    appendItemCount();
 
     $('input').val('');
     closeForm();
   }
+};
+
+const createItem =  async (item) => {
+  const post = await fetch('/api/v1/items', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(item)
+  });
+  const result = await post.json();
 };
 
 function seeItemDetails() {
