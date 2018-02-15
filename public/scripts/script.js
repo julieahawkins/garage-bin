@@ -105,12 +105,13 @@ const addItem = async (event) => {
   const item = {
     name: $('.items-name').val(),
     reason: $('.items-reason').val(),
-    cleanliness: $('select').val(),
+    cleanliness: $('.cleanliness option:selected').val(),
     garage_id: $('.hidden-id').text()
   }
+  console.log(item.cleanliness)
 
   if(!item.name || !item.reason || !item.garage_id) {
-    console.log('error storing new item in garage')
+    console.log('error storing new item in garage');
   } else {
     const post = await fetch('/api/v1/items', {
       method: 'POST',
@@ -120,8 +121,6 @@ const addItem = async (event) => {
       body: JSON.stringify(item)
     });
     const result = await post.json();
-    
-    console.log(result);
 
     $('input').val('');
     closeForm();
