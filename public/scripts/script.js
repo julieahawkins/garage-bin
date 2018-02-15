@@ -26,7 +26,7 @@ const populateItems = (items) => {
         garage.items.push(item)
       }
     })
-    appendItems(item);
+    appendItem(item);
   });
   appendItemCount();
 };
@@ -54,7 +54,8 @@ const appendItemCount = () => {
   }, {});
 
   storedGarages.forEach(garage => {
-    $(`#garage-${counts[garage.name].id} .item-count`).append(`${counts[garage.name].count} Items Stored`);
+    $(`#garage-${counts[garage.name].id} .item-count`).text(`${counts[garage.name].count} Items Stored`);
+    $(`#garage-${counts[garage.name].id} .counts-container`).children().remove();
     $(`#garage-${counts[garage.name].id} .counts-container`).append(
       `<p>${counts[garage.name].types.Sparkling || 0} Sparkling.</p>
       <p>${counts[garage.name].types.Dusty || 0} Dusty.</p>
@@ -87,7 +88,7 @@ const appendGarage = (garage) => {
   )
 };
 
-const appendItems = (item, index) => {
+const appendItem = (item) => {
   const shelfNum = storedGarages[item.garage_id - 1].items.length;
   
   $(`#garage-${item.garage_id} .shelf-${shelfNum}`).append(
@@ -99,33 +100,39 @@ function openDoor() {
   setTimeout(() => ($(this).toggleClass('open')), 600);
 };
 
-const addItem = async (event) => {
+const addItem = (event) => {
   event.preventDefault();
-
   const item = {
     name: $('.items-name').val(),
     reason: $('.items-reason').val(),
-    cleanliness: $('select').val(),
+    cleanliness: $('.cleanliness option:selected').val(),
     garage_id: $('.hidden-id').text()
-  }
+  };
 
   if(!item.name || !item.reason || !item.garage_id) {
-    console.log('error storing new item in garage')
+    console.log('error storing new item in garage');
   } else {
-    const post = await fetch('/api/v1/items', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(item)
-    });
-    const result = await post.json();
-    
-    console.log(result);
+    const garage = storedGarages.find(garage => garage.id === parseInt(item.garage_id));
+    const index = storedGarages.indexOf(garage);
+    storedGarages[index].items.push(item);
+    createItem(item);
+    appendItem(item);
+    appendItemCount();
 
     $('input').val('');
     closeForm();
   }
+};
+
+const createItem =  async (item) => {
+  const post = await fetch('/api/v1/items', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(item)
+  });
+  const result = await post.json();
 };
 
 function seeItemDetails() {
@@ -138,7 +145,7 @@ function seeItemDetails() {
   $('.details-name').text(`Name: ${item.name}`);
   $('.details-reason').text(`Reason for Storage: ${item.reason}`);
   $('.details-cleanliness').val(item.cleanliness);
-  // setTimeout(() => ($('.item-details').addClass('none')), 2000)
+  $('.hidden-item-id').replaceWith(`<p class="hidden-item-id" hidden>${item.id}</p>`)
 };
 
 function openForm() {
@@ -157,21 +164,27 @@ const closeDetails = () => {
   $('.item-details').addClass('none');
 };
 
-// const changeItem = async () => {
-//   console.log($('.details-cleanliness').val());
-//   const id = 
+const changeItem = async () => {
+  const id = $('.hidden-item-id').text();
+  const patch = await fetch(`/api/v1/items/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ cleanliness: $('.details-cleanliness').val() })
+    });
+  const result = await patch.json();
+  
+  storedGarages.forEach(garage => {
+    const item = garage.items.find(item => item.id === parseInt(id));
+    if (item) {
+      item.cleanliness = $('.details-cleanliness').val();
+    }
+  });
 
-//   const patch = await fetch(`/api/v1/items/${id}`, {
-//       method: 'PATCH',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({ cleanliness: $('.details-cleanliness').val() })
-//     });
-//     const result = await patch.json();
-    
-//     console.log(result);
-// };
+  appendItemCount();
+  closeDetails();
+};
 
 $(document).ready(fetchData());
 $('.garages').on('click', '.garage-door', openDoor);
@@ -180,4 +193,4 @@ $('.garages').on('click', '.item-name', seeItemDetails);
 $('.add-item-btn').on('click', addItem);
 $('.close').on('click', closeForm);
 $('.close-details').on('click', closeDetails);
-// $('.change-item').on('click', changeItem);
+$('.change-item').on('click', changeItem);
