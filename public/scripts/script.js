@@ -173,9 +173,17 @@ const changeItem = async () => {
       },
       body: JSON.stringify({ cleanliness: $('.details-cleanliness').val() })
     });
-    const result = await patch.json();
-    
-    console.log(result);
+  const result = await patch.json();
+  
+  storedGarages.forEach(garage => {
+    const item = garage.items.find(item => item.id === parseInt(id));
+    if (item) {
+      item.cleanliness = $('.details-cleanliness').val();
+    }
+  });
+
+  appendItemCount();
+  closeDetails();
 };
 
 $(document).ready(fetchData());
